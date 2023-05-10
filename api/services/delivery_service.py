@@ -1,7 +1,7 @@
 from typing import Dict, List, Tuple
 import requests
 
-from api.models.models import DeliveryCreate, DeliveryOut#, DeliveryInDB
+from api.models.models import DeliveryCreate, DeliveryOut, DeliveryInDB
 
 
 def get_all_possible_moves() -> Dict[str, Dict[str, float]]:

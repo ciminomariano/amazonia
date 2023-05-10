@@ -1,6 +1,6 @@
-from typing import Tuple
+from typing import Tuple, List, Optional
 
-from typing import List
+from pydantic.main import BaseModel
 
 
 class ChessboardCoordinate:
@@ -42,3 +42,12 @@ class DeliveryCreate:
         self.pickup = pickup
         self.destination = destination
         self.objects = objects
+
+
+class DeliveryInDB(BaseModel):
+    id: str
+    start: str
+    pickup: str
+    destination: str
+    route: Optional[str]
+    time: Optional[float]
