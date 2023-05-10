@@ -10,8 +10,13 @@ def get_all_possible_moves() -> Dict[str, Dict[str, float]]:
     return res.json()
 
 
+from typing import Tuple
+
+
 def get_delivery_path(start: str, pickup: str, destination: str) -> Tuple[str, float]:
-    """Returns the fastest delivery path and time elapsed."""
+    """
+    Returns the fastest delivery path and time elapsed from start to destination.
+    """
     # Get all possible moves
     all_moves = get_all_possible_moves()
 
@@ -29,7 +34,6 @@ def get_delivery_path(start: str, pickup: str, destination: str) -> Tuple[str, f
             if next_node not in visited:
                 weight = float(weight)
                 distance = weight_to_current_node + weight
-
                 if distances.get(next_node):
                     if distances[next_node][1] > distance:
                         distances[next_node] = (current_node, distance)
@@ -40,7 +44,7 @@ def get_delivery_path(start: str, pickup: str, destination: str) -> Tuple[str, f
         if not next_destinations:
             return None, None
 
-        # next node is the destination with the lowest weight
+        # Next node is the destination with the lowest weight
         current_node = min(next_destinations, key=lambda k: next_destinations[k][1])
 
     # Get the delivery path
@@ -51,10 +55,14 @@ def get_delivery_path(start: str, pickup: str, destination: str) -> Tuple[str, f
         current_node = next_node
     path = path[::-1]
 
-    # Calculate the time elapsed
+    # Add the pickup location to the path
+    pickup_index = path.index(pickup)
+    path = path[:pickup_index + 1] + [f"P({pickup})"] + path[pickup_index + 1:]
+
+    # Calculate the time elapsed from start to destination
     time_elapsed = distances[destination][1]
 
-    # Return the delivery path and time elapsed
+    # Return the delivery path and time elapsed from start to destination
     delivery_path = '-'.join(path)
     return delivery_path, time_elapsed
 

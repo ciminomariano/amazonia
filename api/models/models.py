@@ -1,6 +1,6 @@
 from typing import Tuple, List, Optional
 
-from pydantic.main import BaseModel
+from pydantic import BaseModel
 
 
 class ChessboardCoordinate:
@@ -17,13 +17,12 @@ class Drone:
         self.position = position
 
 
-class DeliveryOut:
-    def __init__(self, start: str, pickup: str, destination: str, route: List[str], time: int):
-        self.start = start
-        self.pickup = pickup
-        self.destination = destination
-        self.route = route
-        self.time = time
+class DeliveryOut(BaseModel):
+    start: str
+    pickup: str
+    destination: str
+    route: str
+    time: int
 
 
 class Object:
@@ -36,12 +35,22 @@ class Destination:
         self.position = position
 
 
-class DeliveryCreate:
-    def __init__(self, start: str, pickup: str, destination: str, objects: List[Object]):
-        self.start = start
-        self.pickup = pickup
-        self.destination = destination
-        self.objects = objects
+class Config:
+    arbitrary_types_allowed = True
+
+
+class Object:
+    # your Object model definition here
+    pass
+
+
+class DeliveryCreate(BaseModel):
+    start: str
+    pickup: str
+    destination: str
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 class DeliveryInDB(BaseModel):
