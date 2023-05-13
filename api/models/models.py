@@ -18,6 +18,7 @@ class Drone:
 
 
 class DeliveryOut(BaseModel):
+    id: Optional[str]
     start: str
     pickup: str
     destination: str
@@ -48,6 +49,7 @@ class DeliveryCreate(BaseModel):
     start: str
     pickup: str
     destination: str
+    description: Optional[str]
 
     class Config:
         arbitrary_types_allowed = True
