@@ -20,7 +20,7 @@ class MongoRepository:
             return str(result.inserted_id)
         except PyMongoError as e:
             # Manejo de excepción para errores de PyMongo
-            raise Exception(f"Error inserting document in DB: {e}")
+            raise Exception(f"Error inserting the document in DB: {e}")
 
     def get_last_10_deliveries(self) -> List[Dict]:
         deliveries = []
