@@ -1,1 +1,2 @@
-web: uvicorn api.main:app --reload
+web: PORT=8000 uvicorn api.main:app --host=0.0.0.0 --port=$PORT --workers=1
+
